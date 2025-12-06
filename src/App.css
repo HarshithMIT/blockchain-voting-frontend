@@ -1,38 +1,426 @@
-.App {
+/* === GLOBAL STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html, .app {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #18181b;
+  color: #f4f4f5;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* === NAVBAR === */
+nav {
+  background-color: #27272a;
+  border-bottom: 1px solid #3f3f46;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.nav-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fafafa;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.25s ease-in-out;
+}
+
+.nav-btn.active {
+  background-color: #3f3f46;
+  color: #f4f4f5;
+}
+
+.nav-btn:not(.active) {
+  background-color: transparent;
+  color: #a1a1aa;
+}
+
+.nav-btn:not(.active):hover {
+  color: #f4f4f5;
+  background-color: #323236;
+}
+
+/* === MAIN CONTAINER === */
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* === CARDS === */
+.card {
+  background-color: #27272a;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  border: 1px solid #3f3f46;
+  max-width: 48rem;
+  margin: 0 auto 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: #52525b;
+}
+
+.card-wide {
+  max-width: 64rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fafafa;
+}
+
+/* === FORM INPUTS === */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d4d4d8;
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 0.5rem;
+  color: #f4f4f5;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #71717a;
+  background-color: #1f1f23;
+}
+
+/* === BUTTONS === */
+.btn {
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.25s ease;
+}
+
+.btn-primary {
+  background-color: #3f3f46;
+  color: #f4f4f5;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #52525b;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background-color: #27272a;
+  color: #71717a;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #27272a;
+  color: #d4d4d8;
+}
+
+.btn-secondary:hover {
+  background-color: #3f3f46;
+}
+
+/* === CANDIDATES LIST === */
+.candidate-list {
+  margin-top: 2rem;
+}
+
+.candidate-item {
+  background-color: #18181b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #3f3f46;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+.candidate-item.selectable {
+  cursor: pointer;
+}
+
+.candidate-item.selectable:hover {
+  border-color: #71717a;
+  background-color: #1f1f23;
+}
+
+.candidate-item.selected {
+  background-color: #3f3f46;
+  border-color: #71717a;
+  transform: scale(1.01);
+}
+
+.candidate-name {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.candidate-party {
+  font-size: 0.875rem;
+  color: #a1a1aa;
+}
+
+.candidate-id {
+  font-size: 0.75rem;
+  color: #71717a;
+}
+
+/* === VOTER BOX === */
+.voter-id-box {
+  background-color: #18181b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #3f3f46;
+  margin-bottom: 1.5rem;
+}
+
+.voter-id-label {
+  font-size: 0.875rem;
+  color: #a1a1aa;
+  margin-bottom: 0.25rem;
+}
+
+.voter-id-value {
+  font-size: 1.25rem;
+  font-family: 'Courier New', monospace;
+  color: #fafafa;
+}
+
+/* === STATS === */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: #18181b;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #3f3f46;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #a1a1aa;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #fafafa;
+}
+
+/* === VOTE BAR === */
+.vote-bar {
+  width: 100%;
+  background-color: #27272a;
+  border-radius: 9999px;
+  height: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.vote-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* === BLOCKCHAIN === */
+.block-item {
+  background-color: #18181b;
+  border-radius: 0.5rem;
+  border: 1px solid #3f3f46;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.block-header {
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.block-header:hover {
+  background-color: #1f1f23;
+}
+
+.block-details {
+  padding: 1rem;
+  border-top: 1px solid #27272a;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  overflow-x: auto;
+}
+
+.block-detail-value {
+  background-color: #27272a;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  word-break: break-all;
+}
+
+.validity-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+.validity-valid {
+  color: #86efac;
+}
+
+.validity-invalid {
+  background-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+/* === TEXT UTILS === */
+.text-center {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.text-muted {
+  color: #a1a1aa;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #fafafa;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3f3f46;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #52525b;
+}
+
+.validity-valid {
+  color: #22c55e;
+}
+
+.validity-invalid {
+  color: #ef4444;
+}
+
+pre {
+  background-color: #18181b;
+  color: #e4e4e7;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  overflow-x: auto;
+}
+
+/* === SKELETON LOADER (shimmer effect) === */
+.skeleton {
+  background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* === SPINNER === */
+.spinner {
+  border: 4px solid #27272a;
+  border-top: 4px solid #60a5fa; /* blue accent */
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  margin: 1.5rem auto;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
+@keyframes spin {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
+
