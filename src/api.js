@@ -1,7 +1,10 @@
 import axios from "axios";
 import { saveAs } from "file-saver";
 
-const API_BASE = "https://blockchain-voting-backend-1.onrender.com/api"; // backend base URL
+// src/api.js
+const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:3001/api";
+export default API_BASE;
+
 
 // --- Candidates ---
 export async function fetchCandidates() {
